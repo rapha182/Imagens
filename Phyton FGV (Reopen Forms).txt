@@ -1,0 +1,27 @@
+import requests
+
+jira_url = "https://hml-jira2.tic.fgv.br"
+username = "raphael.lopes@a-players.io"
+api_token = "MDQ0NjA4MDI2MjQzOuOiCJPjE6+vm3XrAVZOaBaBRKpm"
+issue_key = "SDGMUD-638"
+
+auth = (username, api_token)
+data = {
+    "update": {
+        "status": [
+            {
+                "set": {
+                    "name": "Reopened"
+                }
+            }
+        ]
+    }
+}
+
+response = requests.put(
+    f"{jira_url}/rest/api/2/issue/{issue_key}",
+    auth=auth,
+    json=data
+)
+
+print(response.status_code) # should be 204
